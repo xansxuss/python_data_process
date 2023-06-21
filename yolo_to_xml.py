@@ -16,7 +16,7 @@ if __name__== "__main__":
     # name = '0_2_out_13650'
     # w , h = 608,608
     for folder in args.folder:
-        img_p=os.path.join(args.img_path,folder)
+        img_p=os.path.join(args.img_path,folder,'imgs')
         label_p=os.path.join(args.label_path,folder,'labels')
         
         label_list=fo.get_file(label_p)

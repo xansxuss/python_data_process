@@ -1,4 +1,4 @@
-import os, cv2,math,random,argparse
+import os, cv2,math,random,argparse,shutil
 import numpy as np
 from skimage.util import random_noise
 import file_operate as fo
@@ -205,26 +205,39 @@ def parse_arguments() :
 
 if __name__ == "__main__":
     args=parse_arguments()
-    # da=DataAugmentForObjectDetection()
+
     for folder in args.folder:
         img_path=os.path.join(args.data_path,folder,'imgs')
         label_path=os.path.join(args.data_path,folder,'labels')
         img_list=fo.get_file(img_path)
         for name in img_list:
             orin_img=cv2.imread(os.path.join(img_path,'{}.jpg'.format(name)))
-            # for i in range(0,100,10):
-            #     light_img=changeLight(orin_img,lightness=-i)
-            #     io.show_img('light_img_{}:{}'.format(i,name),light_img)
-            #     saturation_img=changesaturation(orin_img,saturation=-i)
-            #     io.show_img('saturation_img_{}:{}'.format(i,name),saturation_img)
-            label=xo.get_label(label_path,name)
-            axises=xo.get_axis(label_path,name)
-            # for axis in axises:
-                # print(axis[0],axis[1],axis[2],axis[3])
-            shift_img,shift_bboxes=shift_pic_bboxes(orin_img,axises)
-            print(name,shift_bboxes)
+            for i in range(60,100,10):
+                light_img=changeLight(orin_img,lightness=-i)
+                save_img_path=os.path.join(args.save_path,'{}_light_{}'.format(folder,i),'imgs')
+                save_label_path=os.path.join(args.save_path,'{}_light_{}'.format(folder,i),'labels')
+                fo.check_path(save_img_path)
+                fo.check_path(save_label_path)
+                cv2.imwrite(os.path.join(save_img_path,'{}_light_{}.jpg'.format(name,i)),light_img)
+                fo.copy_f(os.path.join(label_path,'{}.xml'.format(name)),os.path.join(save_label_path,'{}_light_{}.xml'.format(name,i)))
+    #         #     io.show_img('light_img_{}:{}'.format(i,name),light_img)
+    #         #     saturation_img=changesaturation(orin_img,saturation=-i)
+    #         #     io.show_img('saturation_img_{}:{}'.format(i,name),saturation_img)
+    #         label=xo.get_label(label_path,name)
+    #         axises=xo.get_axis(label_path,name)
+    #         shift_img,shift_bboxes=shift_pic_bboxes(orin_img,axises)
+    #         print(name,shift_bboxes)
             
-            crop_img,crop_bboxes=crop_img_bboxes(orin_img,axises)
-            print(name,crop_bboxes)
-            
-            # io.show_img('shift:{}'.format(name))
+    #         crop_img,crop_bboxes=crop_img_bboxes(orin_img,axises)
+    #         print(name,crop_bboxes)
+    # path = '/home/xanxus/Desktop/HaGRID_data/raw_data/palm/JPEGImages/'
+    # name='0d88827e-f724-431b-aa75-186d51ee2485'
+    # orin_img=cv2.imread(os.path.join(path,'{}.jpg'.format(name)))
+    # for i in range(60,100,10):
+    #     light_img=changeLight(orin_img,lightness=-i)
+    #     # io.show_img('light_img_{}:{}'.format(i,name),light_img)
+    #     cv2.imwrite(os.path.join('/home/xanxus/Desktop/test','{}_light{}.jpg'.format(name,i)),light_img)
+    # for i in range(30,60,10):
+    #     saturation_img=changesaturation(orin_img,saturation=-i)
+    #     # io.show_img('saturation_img_{}:{}'.format(i,name),saturation_img
+    #     cv2.imwrite(os.path.join('/home/xanxus/Desktop/test','{}_saturation{}.jpg'.format(name,i)),saturation_img)

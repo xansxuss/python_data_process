@@ -45,6 +45,7 @@ def parse_arguments() :
     known_args, _ = parser.parse_known_args()
     return known_args
 if __name__ == "__main__":
+    
     for i in range(len(name_list)):
         shutil.move(os.path.join(source,'labels','{}.xml'.format(name_list[i])),target)
         shutil.move(os.path.join(source,'imgs','{}.jpg'.format(name_list[i])),target)

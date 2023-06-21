@@ -2,7 +2,7 @@ import os,cv2,argparse
 import xml.etree.cElementTree as ET
 from file_operate import check_path,get_file
 
-def replace_label(path,name,label_str,l_list,out_path):
+def replace_label(path,name,label_str,l_list):
     xml_name = os.path.join(path,'{}.xml'.format(name))
     tree=ET.parse(xml_name)
     root=tree.getroot()
@@ -15,7 +15,7 @@ def replace_label(path,name,label_str,l_list,out_path):
         else:
             # print('pass')
             continue
-        tree.write(os.path.join(out_path,'{}.xml'.format(name)))
+        tree.write(os.path.join(path,'{}.xml'.format(name)))
         print('write {} in file'.format(name))
 
 def delete_label(path,name,label_list):
@@ -181,11 +181,14 @@ if __name__ == "__main__":
         name_list=get_file(label_p)
         label_dict={}
         error_lists = set()
+        label_lists = set()
         for name in name_list:
             if args.flag == 'label':
                 label_list=get_label(label_p,name)
                 if label_list :
-                    print('{}:{},{}'.format(name,label_list,len(label_list))) 
+                    print('{}:{},{}'.format(name,label_list,len(label_list)))
+                    for label in label_list:
+                        label_lists.add(label)
             elif args.flag == 'add':
                 for label,axises in zip(args.label_list,args.axis_list):
                     axis=axises.split(',')
@@ -193,7 +196,7 @@ if __name__ == "__main__":
             elif args.flag == 'delete':
                 delete_label(label_p,name,args.label_list)
             elif args.flag == 'change':
-                replace_label(label_p,name,args.label_change,args.label_list,args.save_xml)
+                replace_label(label_p,name,args.label_change,args.label_list)
             elif args.flag == 'axis':
                 ng=set()
                 axis_list=get_axis(label_p,name)
@@ -210,3 +213,5 @@ if __name__ == "__main__":
                 create_xml(labelp,name,img.shape,args.folder)
         if args.flag =='check':
             print(error_lists)
+        elif args.flag =='label':
+            print(label_lists)
