@@ -115,7 +115,7 @@ if __name__ == "__main__":
         for fl in file_list:
             src_img=cv2.imread(os.path.join(img_path,'{}.jpg'.format(fl)))
             src_size=src_img.shape[:2]
-            print(src_size)
+            print('name:{},size:{}'.format(fl,src_size))
             img_dst=img_resize(src_img,dst_size,fl,save_img)
             bbox = read_xml(os.path.join(label_path,'{}.xml'.format(fl)))
             bbox = bbox_resize(bbox,src_size,dst_size)

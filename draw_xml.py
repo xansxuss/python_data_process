@@ -65,7 +65,7 @@ if __name__ == "__main__":
             img = draw_bbox(img_path,name,label_data)
 
             if args.save_path:
-                write_img('{}/{}_out.jpg'.format(args.save_path,name),img)
+                write_img('{}/{}_out.jpg'.format(args.save_path,folder,name),img)
                 # open_img('{}_out.jpg'.format(name),args.save_path)
             else:
                 show_img(name,img)
