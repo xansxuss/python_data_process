@@ -61,8 +61,8 @@ def read_xml(xml_path):
         xmin,ymin,xmax,ymax=(x.text for x in obj.find('bndbox'))
         box.append([xmin,ymin,xmax,ymax])
     return box
-def write_xml(label_list, file_name,dst_size,save_path):
-    name = os.path.join(args.label_path,'{}.xml'.format(file_name))
+def write_xml(label_path,label_list, file_name,dst_size,save_path):
+    name = os.path.join(label_path,'{}.xml'.format(file_name))
     etree=ET.parse(name)
     root = etree.getroot()
     for obj in root.iter('size'):
@@ -79,8 +79,11 @@ def parse_arguments() :
     parser = argparse.ArgumentParser(description="load data")
     parser.add_argument("--img_path",help="image dataset path")
     parser.add_argument("--label_path",help="label path")
+    parser.add_argument("--data_path",help="data path")
     parser.add_argument("--save_xml",help="output save path")
     parser.add_argument("--save_img",help="output save path")
+    parser.add_argument("--save_path",help="output save path")
+    parser.add_argument('--folder',help="folder_list",nargs='+')
     parser.add_argument("--scale")
     known_args, _ = parser.parse_known_args()
     return known_args
@@ -100,11 +103,11 @@ if __name__ == "__main__":
     #     bbox = bbox_resize(bbox,src_size,dst_size)
     #     write_xml(bbox,fl,dst_size,args.save_xml)
 
-    for floder in args.folder:
-        img_path=os.path.join(args.data_path,floder,'imgs')
-        label_path=os.path.join(args.data_path,floder,'labels')
-        save_img=os.path.join(args.save_path,floder,'imgs')
-        save_label=os.path.join(args.save_path,floder,'labels')
+    for folder in args.folder:
+        img_path=os.path.join(args.data_path,folder,'imgs')
+        label_path=os.path.join(args.data_path,folder,'labels')
+        save_img=os.path.join(args.save_path,folder,'imgs')
+        save_label=os.path.join(args.save_path,folder,'labels')
         check_path(save_img)
         check_path(save_label)
         dst_size = (int(args.scale),int(args.scale))
