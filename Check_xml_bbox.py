@@ -20,7 +20,7 @@ def parse_arguments() :
 arge=parse_arguments()
 
 for xml in os.listdir(arge.label_path):
-    print(xml)
+    # print(xml)
     if '.xml' in xml:
         xml = os.path.join(arge.label_path,xml)
         tree = ET.parse(xml)
@@ -33,7 +33,8 @@ for xml in os.listdir(arge.label_path):
             ymin = int(neighbor.find('ymin').text)
             xmax = int(neighbor.find('xmax').text)
             ymax = int(neighbor.find('ymax').text)
-            if check_bbox(xmin, width) or check_bbox(ymin, height) or check_bbox(xmax, width) or check_bbox(ymax, height):
+            if check_bbox(xmin, width) or check_bbox(ymin, height) or check_bbox(xmax, width) or check_bbox(ymax, height) or width == 0 or height == 0 :
+                print('w:{},h:{},xmin:{},ymin:{},xmax:{},ymax:{}'.format(width,height,xmin,ymin,xmax,ymax))
                 error_xml.add(xml)
 print(error_xml)
 print(len(error_xml))
