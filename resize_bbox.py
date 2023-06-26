@@ -87,23 +87,36 @@ def parse_arguments() :
 
 if __name__ == "__main__":
     args=parse_arguments()
-    check_path(args.save_img)
-    check_path(args.save_xml)
-    dst_size = (int(args.scale),int(args.scale))
-    file_list = get_file(args.label_path)
-    for fl in file_list:
-        src_img=cv2.imread(os.path.join(args.img_path,'{}.jpg'.format(fl)))
-        src_size=src_img.shape[:2]
-        print(src_size)
-        img_dst=img_resize(src_img,dst_size,fl,args.save_img)
-        bbox = read_xml(os.path.join(args.label_path,'{}.xml'.format(fl)))
-        bbox = bbox_resize(bbox,src_size,dst_size)
-        write_xml(bbox,fl,dst_size,args.save_xml)
-        # for l in bbox:
-        #     img_dst=cv2.rectangle(img_dst,(l[0],l[1]),(l[2],l[3]),(255,255,255),1)
-        # cv2.imshow('test',img_dst)
-        # if 27 == cv2.waitKey():
-        #     cv2.destroyAllWindows()
+    # check_path(args.save_img)
+    # check_path(args.save_xml)
+    # dst_size = (int(args.scale),int(args.scale))
+    # file_list = get_file(args.label_path)
+    # for fl in file_list:
+    #     src_img=cv2.imread(os.path.join(args.img_path,'{}.jpg'.format(fl)))
+    #     src_size=src_img.shape[:2]
+    #     print(src_size)
+    #     img_dst=img_resize(src_img,dst_size,fl,args.save_img)
+    #     bbox = read_xml(os.path.join(args.label_path,'{}.xml'.format(fl)))
+    #     bbox = bbox_resize(bbox,src_size,dst_size)
+    #     write_xml(bbox,fl,dst_size,args.save_xml)
+
+    for floder in args.folder:
+        img_path=os.path.join(args.data_path,floder,'imgs')
+        label_path=os.path.join(args.data_path,floder,'labels')
+        save_img=os.path.join(args.save_path,floder,'imgs')
+        save_label=os.path.join(args.save_path,floder,'labels')
+        check_path(save_img)
+        check_path(save_label)
+        dst_size = (int(args.scale),int(args.scale))
+        file_list=get_file(label_path)
+        for fl in file_list:
+            src_img=cv2.imread(os.path.join(img_path,'{}.jpg'.format(fl)))
+            src_size=src_img.shape[:2]
+            print(src_size)
+            img_dst=img_resize(src_img,dst_size,fl,save_img)
+            bbox = read_xml(os.path.join(label_path,'{}.xml'.format(fl)))
+            bbox = bbox_resize(bbox,src_size,dst_size)
+            write_xml(label_path,bbox,fl,dst_size,save_label)
 
 
 # img_path ='./data/image/train_val_palm/0a1cbe0d-ce68-4228-8a08-9a9a54c59713.jpg'
