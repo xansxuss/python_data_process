@@ -44,7 +44,7 @@ if __name__ == '__main__':
         i_files=fo.get_file(os.path.join(args.data_path,folder,'imgs'))
         l_files=fo.get_file(os.path.join(args.data_path,folder,'labels'))
         print('{}:start'.format(folder))
-        print(len(l_files))
+        # print(len(l_files))
         x= 0
         for n in l_files:
             name = n .split('.')[0]
@@ -53,7 +53,7 @@ if __name__ == '__main__':
             if error_name:
                 x= x+1
                 l_files.remove(error_name)
-        print(x)
+        # print(x)
         print(len(l_files))
 
 
@@ -63,10 +63,10 @@ if __name__ == '__main__':
             new_n_list2=list(set(l_files).symmetric_difference(set(new_n_list1)))
             new_n_list2=random.sample(new_n_list2,int(num*0.2))
             new_n_list3=new_n_list1+new_n_list2
-            print('{}'.format(l_files),len(l_files),'\n')
-            print('{}'.format(new_n_list1),len(new_n_list1),'\n')
-            print('{}'.format(new_n_list2),len(new_n_list2),'\n')
-            print('{}'.format(new_n_list3),len(new_n_list3))
+            # print('{}'.format(l_files),len(l_files),'\n')
+            # print('{}'.format(new_n_list1),len(new_n_list1),'\n')
+            # print('{}'.format(new_n_list2),len(new_n_list2),'\n')
+            # print('{}'.format(new_n_list3),len(new_n_list3))
             with open('{}/ImageSets/Main/train.txt'.format(args.save_path),'a+') as ft:
                 for fts in range(len(new_n_list1)):
                     ft.write(new_n_list1[fts])

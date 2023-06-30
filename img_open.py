@@ -65,7 +65,7 @@ def save_video_frame(data_path,floders,save_path):
         for name in name_list:
             n = name.split('.')[0]
             if '.mp4' in name:
-                x
+                x =0
                 print('do:{}'.format(n))
                 cam = cv2.VideoCapture(os.path.join(data_path,folder,name))
                 frame_end = cam.get(cv2.CAP_PROP_FRAME_COUNT)
@@ -96,20 +96,20 @@ if __name__ == '__main__':
     parser.add_argument('--save_path')
     parser.add_argument('--folder',help="folder_list",nargs='+')
     args=parser.parse_args()
-    # check_path(args.save_path)
+    check_path(args.save_path)
     # name_list = get_file(args.path)
     # for i in range(len(name_list)):
-    #     open_img(name_list[i],args.path)
-    #     open_video(name_list[i],args.path)
+        # open_img(name_list[i],args.path)
+        # open_video(name_list[i],args.path)
     # f_list=os.listdir(args.path)
     # open_multi_folder_img(args.path,f_list)
-    # save_video_frame(args.input_path,args.folder,args.save_path)
+    save_video_frame(args.input_path,args.folder,args.save_path)
 
-    for flist in args.folder:
-        pname = os.path.join(args.input_path,flist)
-        file_lists=os.listdir(pname)
-        for nfile in file_lists:
-            file_name = os.path.join(pname,nfile)
-            # print(file_name)
-            img=cv2.imread(file_name)
-            show_img(nfile,img)
+    # for flist in args.folder:
+    #     pname = os.path.join(args.input_path,flist)
+    #     file_lists=os.listdir(pname)
+    #     for nfile in file_lists:
+    #         file_name = os.path.join(pname,nfile)
+    #         # print(file_name)
+    #         img=cv2.imread(file_name)
+    #         show_img(nfile,img)

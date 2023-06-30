@@ -27,7 +27,7 @@ def draw_bbox(img,name,label_d):
     
     for i in range(len(label_data)):
         label,xmin,ymin,xmax,ymax=label_data[i]
-        img_out=cv2.rectangle(img_o,(int(xmin),int(ymin)),(int(xmax),int(ymax)),(255,0,0),1)
+        img_out=cv2.rectangle(img_o,(int(xmin),int(ymin)),(int(xmax),int(ymax)),(255,0,0),2)
         img_out=cv2.putText(img_out,label,(int(xmin),int(ymax)),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,0),1,cv2.LINE_AA)
         # cv2.imwrite('{}/{}_out.jpg'.format(args.save_path,out_name),img_out)
     return img_out

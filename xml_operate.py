@@ -176,19 +176,23 @@ if __name__ == "__main__":
     if args.save_xml:
         check_path(args.save_xml)
     for folder in args.folder:
+        print('do:{}'.format(folder))
         label_p=(os.path.join(args.data_path,folder,'labels'))
         img_p=(os.path.join(args.data_path,folder,'imgs'))
         name_list=get_file(label_p)
         label_dict={}
         error_lists = set()
         label_lists = set()
+        no_label=set()
         for name in name_list:
             if args.flag == 'label':
                 label_list=get_label(label_p,name)
                 if label_list :
-                    print('{}:{},{}'.format(name,label_list,len(label_list)))
+                    # print('{}:{},{}'.format(name,label_list,len(label_list)))
                     for label in label_list:
                         label_lists.add(label)
+                else:
+                    no_label.add(name)
             elif args.flag == 'add':
                 for label,axises in zip(args.label_list,args.axis_list):
                     axis=axises.split(',')
@@ -204,7 +208,6 @@ if __name__ == "__main__":
             elif args.flag =='check':
                 error_name=check_label(label_p,name)
                 if error_name:
-                    print(error_name)
                     error_lists.add(error_name)
             elif args.flag =='create':
                 imgp=os.path.join(img_p, "{}.jpg".format(name))
@@ -212,6 +215,7 @@ if __name__ == "__main__":
                 labelp=os.path.join(label_p,"{}.xml".format(name))
                 create_xml(labelp,name,img.shape,args.folder)
         if args.flag =='check':
-            print(error_lists)
+            print('error_file_list:{}'.format(list(error_lists)))
         elif args.flag =='label':
-            print(label_lists)
+            print('label:{}'.format(list(label_lists)))
+            print('NO_label_name:{}'.format(list(no_label)))
