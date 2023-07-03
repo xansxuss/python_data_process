@@ -18,15 +18,17 @@ if __name__== "__main__":
         # label_p=os.path.join(args.label_path,folder,'labels')
         label_p=os.path.join(args.label_path,folder,'yolo/labels')
         name=set()
-        
+
         label_list=fo.get_file(label_p)
         for lname in label_list:
+            print('name:{}'.format(lname))
             img = cv2.imread(os.path.join(img_p,'{}.jpg'.format(lname)))
             with open(os.path.join(label_p,'{}.txt'.format(lname))) as f:
                 contents = [line for line in f.readlines()]
             f.close
             xml_path=os.path.join(args.img_path,folder,'labels')
             fo.check_path(xml_path)
+            print('shape:{}'.format(img.shape))
 
             if args.flag == 'label':
                 if not os.path.isfile(os.path.join(xml_path,'{}.xml'.format(lname))):
@@ -49,6 +51,7 @@ if __name__== "__main__":
                     axis=[x1,y1,x2,y2]
                     # print(x1,y1,x2,y2)
                     xo.add_label(xml_path,lname,label,axis)
+                    print('done')
             elif args.flag == 'check':
                 fo.check_path(os.path.join(args.img_path,folder,'NG'))
                 if len(contents) != 1:

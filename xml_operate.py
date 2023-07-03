@@ -33,7 +33,7 @@ def delete_label(path,name,label_list):
 def add_label(path,name,label,axis):
     
     xml_name = os.path.join(path,'{}.xml'.format(name))
-    print(xml_name)
+    # print(xml_name)
     tree=ET.parse(xml_name)
     root=tree.getroot()
     
@@ -112,11 +112,11 @@ def check_label(path,name):
             x_list=[axis[0],axis[2]]
             y_list=[axis[1],axis[3]]
             for i in range(2):
-                if check_bbox(int(x_list[i]),int(size_list[0]))and check_bbox(int(y_list[i]),int(size_list[1])):
+                if check_bbox(int(x_list[i]),int(size_list[0])) or check_bbox(int(y_list[i]),int(size_list[1])) or size_list[0] == 0 or size_list[1] == 0 :
                     # error_xml.add(name)
                     return name
     else :
-        return name   
+        print('{} No label'.format(name))  
     # print('fail:{}'.format(error_xml))
     
 def create_xml(xml_path,file_name,img_shape,foldern):
