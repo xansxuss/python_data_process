@@ -112,7 +112,8 @@ def check_label(path,name):
             x_list=[axis[0],axis[2]]
             y_list=[axis[1],axis[3]]
             for i in range(2):
-                if check_bbox(int(x_list[i]),int(size_list[0])) or check_bbox(int(y_list[i]),int(size_list[1])) or size_list[0] == 0 or size_list[1] == 0 :
+                # if check_bbox(int(x_list[i]),int(size_list[0])) or check_bbox(int(y_list[i]),int(size_list[1])) or int(axis[2]) - int(axis[0]) <= 5 or int(axis[3]) - int(axis[1]) <= 5 :
+                if check_bbox(int(x_list[i]),int(size_list[0])) or check_bbox(int(y_list[i]),int(size_list[1])):
                     # error_xml.add(name)
                     return name
     else :
