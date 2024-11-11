@@ -163,7 +163,7 @@ def parse_arguments() :
     parser.add_argument("--data_path",help="data path")
     parser.add_argument("--folder",help="multi folder",nargs='+')
     parser.add_argument("--save_xml",help="output save path")
-    parser.add_argument("--label_list",help="label_list",nargs='+')
+    parser.add_argument("--label_list",type=str,help="label_list",nargs='+')
     parser.add_argument("--axis_list",help="axis point",nargs='+')
     parser.add_argument("--label_change",help="change label str")
     parser.add_argument("--flag",help="option flag",default='label')
